@@ -7,6 +7,7 @@ import com.example.odziezowy.DTOS.UserGetDto;
 import com.example.odziezowy.Model.Roles;
 import com.example.odziezowy.Model.Users;
 import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface MapStructMapper {
 
     UserGetDto userToUserGetDto(Users users);
 
-    List<UserGetDto> usersToUsersAllDto(List<Users> users);
+    List<UserGetDto> usersToUsersAllDto(Page<Users> users);
 
     RolesAllDto rolesToRolesAllDto(Roles roles);
     RolesDto rolesToRolesDto(Roles roles);

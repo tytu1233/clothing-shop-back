@@ -5,6 +5,7 @@ import com.example.odziezowy.DTOS.RolesDto;
 import com.example.odziezowy.DTOS.UserGetDto;
 import com.example.odziezowy.Model.Roles;
 import com.example.odziezowy.Model.Users;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -33,11 +34,11 @@ public class MapStructMapperImpl implements MapStructMapper {
     }
 
     @Override
-    public List<UserGetDto> usersToUsersAllDto(List<Users> users) {
+    public List<UserGetDto> usersToUsersAllDto(Page<Users> users) {
         if(users == null)
             return null;
 
-        List<UserGetDto> list = new ArrayList<UserGetDto>( users.size() );
+        List<UserGetDto> list = new ArrayList<UserGetDto>( );
         for ( Users user : users ) {
             list.add( userToUserGetDto( user ) );
         }
