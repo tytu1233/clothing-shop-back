@@ -11,18 +11,18 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "roles")
-public class Roles {
+@Table(name = "categories")
+public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long id_role;
+    private Long id_category;
 
     @Column
-    private String role_name;
+    private String category_name;
 
-    @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "categories", orphanRemoval = true)
     @JsonBackReference
-    private List<Users> user_id = new ArrayList<>();
+    private List<Products> productses = new ArrayList<>();
 
 }

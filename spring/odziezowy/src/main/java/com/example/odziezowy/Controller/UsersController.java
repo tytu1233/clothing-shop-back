@@ -1,7 +1,7 @@
 package com.example.odziezowy.Controller;
 
-import com.example.odziezowy.DTOS.UserGetDto;
-import com.example.odziezowy.Mappers.MapStructMapper;
+import com.example.odziezowy.Model.Users;
+import com.example.odziezowy.Repository.RolesRepository;
 import com.example.odziezowy.Repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,40 +13,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 public class UsersController {
-    private MapStructMapper mapstructMapper;
 
     private UsersRepository usersRepository;
 
+    private RolesRepository rolesRepository;
+
     @Autowired
-    public UsersController(MapStructMapper mapstructMapper, UsersRepository usersRepository) {
-        this.mapstructMapper = mapstructMapper;
+    public UsersController(UsersRepository usersRepository, RolesRepository rolesRepository) {
         this.usersRepository = usersRepository;
+        this.rolesRepository = rolesRepository;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserGetDto> getById(@PathVariable(value = "id") Long id) {
-        return new ResponseEntity<>(
-                mapstructMapper.userToUserGetDto(
-                        usersRepository.findById(id).get()
-                ),
-                HttpStatus.OK
-        );
+    public Optional<Users> getById(@PathVariable(value = "id") Long id) {
+        return usersRepository.findById(id);
     }
 
-    @GetMapping
-    public ResponseEntity<Page<UserGetDto>> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
-                                                   @RequestParam(defaultValue = "10") Integer pageSize) {
+
+    @GetMapping()
+    public Page<Users> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
+                              @RequestParam(defaultValue = "10") Integer pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize);
-        List<UserGetDto> pageResult = mapstructMapper.usersToUsersAllDto(usersRepository.findAll(paging));
-        return new ResponseEntity<>(
-                new PageImpl<>(pageResult, paging, pageResult.size())
-                ,
-                HttpStatus.OK
-        );
+        return usersRepository.findAllByRoles(paging, rolesRepository.findById(Long.valueOf(2)));
     }
-
 }
