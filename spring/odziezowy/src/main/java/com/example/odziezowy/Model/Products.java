@@ -35,6 +35,7 @@ public class Products {
     private Categories categories;
 
     @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<OrdersProducts> ordersProductses = new ArrayList<>();
 
 }

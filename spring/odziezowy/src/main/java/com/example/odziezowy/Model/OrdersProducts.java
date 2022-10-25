@@ -1,5 +1,6 @@
 package com.example.odziezowy.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,10 +20,12 @@ public class OrdersProducts {
     private int quantity;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     @JoinColumn(name = "orders_id")
     private Orders orders;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     @JoinColumn(name = "products_id")
     private Products products;
 
