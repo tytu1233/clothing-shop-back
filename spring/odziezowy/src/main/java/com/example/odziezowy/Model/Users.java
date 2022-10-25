@@ -21,11 +21,11 @@ public class Users {
     private Long id_user;
 
     @Basic
-    @Column
+    @Column(unique=true)
     private String email;
 
     @Basic
-    @Column
+    @Column(unique=true)
     private String login;
 
     @Basic
