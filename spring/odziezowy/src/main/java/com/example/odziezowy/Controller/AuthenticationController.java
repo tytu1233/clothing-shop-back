@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/authentication")
@@ -37,10 +35,7 @@ public class AuthenticationController {
 
     @GetMapping
     public ResponseEntity<Object> checkAuthenticatedUser(@RequestHeader("Authorization") String token) {
-        if (authenticationService.checkAuthentication(token)) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(Collections.singletonMap("response", "pass"));
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("response", "fail"));
+        return authenticationService.checkAuthentication(token);
     }
 
 }

@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface UsersRepository extends JpaRepository<Users, Long> {
     Page<Users> findAll(Pageable pageable);
     Page<Users> findAllByRoles(Pageable pageable, Optional<Roles> roles);
-    Optional<Users> findAllByLoginAndPassword(String login, String password);
+    Optional<Users> findByLoginAndPassword(String login, String password);
 }
