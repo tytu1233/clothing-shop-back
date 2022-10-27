@@ -42,7 +42,7 @@ public class Users {
 
     @Basic
     @Column
-    private String phone_number;
+    private String address;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonManagedReference

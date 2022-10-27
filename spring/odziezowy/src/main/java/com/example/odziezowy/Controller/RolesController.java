@@ -24,8 +24,8 @@ public class RolesController {
     }
 
 
-    @GetMapping("{id}")
-    public Optional<Roles> getById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public Optional<Roles> getById(@PathVariable(value = "id") Long id) {
         return rolesRepository.findById(id);
     }
 
