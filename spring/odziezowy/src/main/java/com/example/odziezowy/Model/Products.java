@@ -22,13 +22,16 @@ public class Products {
     private Long id_product;
 
     @Column
-    private String product_name;
+    private String name;
 
     @Column
     private Double price;
 
     @Column
     private String description;
+
+    @Column
+    private String image;
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     @JoinColumn(name = "categories_id")
