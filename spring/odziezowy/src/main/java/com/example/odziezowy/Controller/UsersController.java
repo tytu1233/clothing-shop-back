@@ -58,4 +58,14 @@ public class UsersController {
         Pageable paging = PageRequest.of(pageNo, pageSize);
         return usersRepository.findAllByRoles(paging, rolesRepository.findById(Long.valueOf(2)));
     }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<String> getUserByEmail(@PathVariable(value = "email") String email) {
+         usersRepository.findByEmail(email);
+
+        if(usersRepository.findByEmail(email).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body("wolne");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("zajete");
+    }
 }
