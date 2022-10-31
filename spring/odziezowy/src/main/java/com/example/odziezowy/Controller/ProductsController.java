@@ -3,13 +3,16 @@ package com.example.odziezowy.Controller;
 
 import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Repository.ProductsRepository;
+import com.example.odziezowy.Service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -17,10 +20,12 @@ import java.util.List;
 public class ProductsController {
 
     private ProductsRepository productsRepository;
+    private ProductsService productsService;
 
     @Autowired
-    public ProductsController(ProductsRepository productsRepository) {
+    public ProductsController(ProductsRepository productsRepository, ProductsService productsService) {
         this.productsRepository = productsRepository;
+        this.productsService = productsService;
     }
 
     @GetMapping
@@ -30,9 +35,19 @@ public class ProductsController {
         return productsRepository.findAll(paging);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/search/{name}")
     public List<Products> getAllByName(@PathVariable(value = "name") String name) {
         return productsRepository.findAllByNameContains(name);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Products> getById(@PathVariable(value = "id") Long id) {
+        return productsRepository.findById(id);
+    }
+
+    @GetMapping("/filter")
+    public Page<Products> filterData(@RequestParam List<String> brands) {
+        return productsService.getFilteredData(brands);
     }
 
 }
