@@ -45,8 +45,11 @@ public class ProductsController {
     }
 
     @GetMapping("/filter")
-    public Page<Products> filterData(@RequestParam List<String> brands) {
-        return productsService.getFilteredData(brands);
+    public Page<Products> filterData(@RequestParam(defaultValue = "0") Integer pageNo,
+                                     @RequestParam(defaultValue = "12") Integer pageSize,
+                                     @RequestParam List<String> brands,
+                                     @RequestParam List<Double> prices) {
+        return productsService.getFilteredData(brands, prices, pageNo, pageSize);
     }
 
 }
