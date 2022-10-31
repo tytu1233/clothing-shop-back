@@ -32,7 +32,7 @@ public class UsersController {
 
     @PostMapping("/{id}")
     public ResponseEntity<Users> register(@PathVariable(value = "id") Long id, @RequestBody UsersDto user) {
-        System.out.println(user.getAddress());
+        //System.out.println(user.getAddress());
         Roles roles = rolesRepository.findById(id).get();
         Users users = new Users();
         users.setRoles(roles);
@@ -61,9 +61,15 @@ public class UsersController {
 
     @GetMapping("/email/{email}")
     public ResponseEntity<String> getUserByEmail(@PathVariable(value = "email") String email) {
-         usersRepository.findByEmail(email);
-
         if(usersRepository.findByEmail(email).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body("wolne");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("zajete");
+    }
+
+    @GetMapping("/login/{login}")
+    public ResponseEntity<String> getUserByLogin(@PathVariable(value = "login") String login) {
+        if(usersRepository.findByLogin(login).isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body("wolne");
         }
         return ResponseEntity.status(HttpStatus.OK).body("zajete");

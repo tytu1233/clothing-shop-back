@@ -19,7 +19,7 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long id_orders;
+    private Long idOrders;
 
     @Column
     private Double final_price;

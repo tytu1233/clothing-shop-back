@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,9 +25,12 @@ public class ProductsService {
     public Page<Products> getFilteredData(List<String> brands) {
         System.out.println(brands);
         Pageable paging = PageRequest.of(0, 10);
+        List<Double> a = new ArrayList<>();
+        a.add(100.00);
+        a.add(120.00);
         if(brands.isEmpty())
             return productsRepository.findAll(paging);
-        return productsRepository.findAllByNameIn(brands, paging);
+        return productsRepository.findAllByNameInOrPriceIn(brands, a, paging);
     }
 
 

@@ -1,11 +1,17 @@
 package com.example.odziezowy.Controller;
 
+import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Model.Orders;
+import com.example.odziezowy.Model.Roles;
+import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.Repository.OrdersRepository;
+import com.example.odziezowy.Repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,10 +20,12 @@ import org.springframework.web.bind.annotation.*;
 public class OrdersController {
 
     private OrdersRepository ordersRepository;
+    private UsersRepository usersRepository;
 
     @Autowired
-    public OrdersController(OrdersRepository ordersRepository) {
+    public OrdersController(OrdersRepository ordersRepository, UsersRepository usersRepository) {
         this.ordersRepository = ordersRepository;
+        this.usersRepository = usersRepository;
     }
 
     @GetMapping()
@@ -27,6 +35,16 @@ public class OrdersController {
         Pageable paging = PageRequest.of(pageNo, pageSize);
         return ordersRepository.findAll(paging);
 
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Long> createOrder(@PathVariable(value = "id") Long id) {
+        Users users = usersRepository.findById(id).get();
+        Orders orders = new Orders();
+        orders.setUsers(users);
+        orders.setFinal_price(0.00);
+        ordersRepository.save(orders);
+        return new ResponseEntity<>(orders.getIdOrders(), HttpStatus.CREATED);
     }
 
 }

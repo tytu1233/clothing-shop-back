@@ -11,4 +11,5 @@ import java.util.List;
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     Page<Orders> findAll(Pageable pageable);
+    Orders findByIdOrders(Long id);
 }
