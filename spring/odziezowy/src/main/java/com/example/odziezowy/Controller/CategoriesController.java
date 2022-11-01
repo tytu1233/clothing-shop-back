@@ -9,8 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,8 +16,8 @@ import java.util.List;
 @RequestMapping("/categories")
 public class CategoriesController {
 
-    private CategoriesRepository categoriesRepository;
-    private CategoriesService categoriesService;
+    private final CategoriesRepository categoriesRepository;
+    private final CategoriesService categoriesService;
 
     @Autowired
     public CategoriesController(CategoriesRepository categoriesRepository, CategoriesService categoriesService) {

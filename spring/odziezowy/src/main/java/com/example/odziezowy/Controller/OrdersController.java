@@ -1,6 +1,8 @@
 package com.example.odziezowy.Controller;
 
+import com.example.odziezowy.DTOS.OrdersDto;
 import com.example.odziezowy.DTOS.UsersDto;
+import com.example.odziezowy.Exception.ResourceNotFoundException;
 import com.example.odziezowy.Model.Orders;
 import com.example.odziezowy.Model.Roles;
 import com.example.odziezowy.Model.Users;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -45,6 +49,17 @@ public class OrdersController {
         orders.setFinal_price(0.00);
         ordersRepository.save(orders);
         return new ResponseEntity<>(orders.getIdOrders(), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}/{price}")
+    public ResponseEntity<Long> updateOrder(@PathVariable long id, @PathVariable String price) {
+        Orders updateOrders = ordersRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not exist with id: " + id));
+        updateOrders.setFinal_price(Double.valueOf(price));
+
+        ordersRepository.save(updateOrders);
+
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
 }
