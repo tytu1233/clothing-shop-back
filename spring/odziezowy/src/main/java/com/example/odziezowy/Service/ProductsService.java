@@ -21,11 +21,13 @@ public class ProductsService {
     }
 
 
-    public Page<Products> getFilteredData(List<String> brands, List<Double> prices, Integer pageNo, Integer pageSize) {
+    public Page<Products> getFilteredData(List<String> brands, Double min, Double max, Integer pageNo, Integer pageSize) {
         System.out.println(brands);
         Pageable paging = PageRequest.of(pageNo, pageSize);
-        if(!(brands.isEmpty()) && !(prices.isEmpty()))
-           return productsRepository.findAllByNameInAndPriceIn(paging, brands, prices);
+        if(!(brands.isEmpty()) && !(min<0) && !(max<0))
+           return productsRepository.findAllByNameInAndPriceBetween(paging, brands, min, max);
+        if(min>0 && max>0)
+            return productsRepository.findAllByPriceBetween(paging, min, max);
         if(!brands.isEmpty())
             return productsRepository.findAllByNameIn(paging, brands);
         return productsRepository.findAll(paging);

@@ -9,6 +9,7 @@ import java.util.List;
 public interface ProductsRepository extends JpaRepository<Products, Long> {
     Page<Products> findAll(Pageable pageable);
     List<Products> findAllByNameContains(String name);
-    Page<Products> findAllByNameInAndPriceIn(Pageable pageable, List<String> brands, List<Double> price);
+    Page<Products> findAllByNameInAndPriceBetween(Pageable pageable, List<String> brands, Double min, Double max);
+    Page<Products> findAllByPriceBetween(Pageable pageable, Double min, Double max);
     Page<Products> findAllByNameIn(Pageable pageable, List<String> brands);
 }

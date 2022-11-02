@@ -48,8 +48,9 @@ public class ProductsController {
     public Page<Products> filterData(@RequestParam(defaultValue = "0") Integer pageNo,
                                      @RequestParam(defaultValue = "12") Integer pageSize,
                                      @RequestParam List<String> brands,
-                                     @RequestParam List<Double> prices) {
-        return productsService.getFilteredData(brands, prices, pageNo, pageSize);
+                                     @RequestParam Double minPrice,
+                                     @RequestParam Double maxPrice) {
+        return productsService.getFilteredData(brands, minPrice, maxPrice, pageNo, pageSize);
     }
 
 }
