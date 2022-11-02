@@ -32,13 +32,21 @@ public class OrdersController {
         this.usersRepository = usersRepository;
     }
 
-    @GetMapping()
+    @GetMapping
     public Page<Orders> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
                                @RequestParam(defaultValue = "10") Integer pageSize) {
 
         Pageable paging = PageRequest.of(pageNo, pageSize);
         return ordersRepository.findAll(paging);
 
+    }
+
+
+    @GetMapping("/{id}")
+    public List<Orders> getOrdersByUserId(@PathVariable(value="id") Long id) {
+        Users users = usersRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not exist with id: " + id));;
+        return ordersRepository.findAllByUsers(users);
     }
 
     @PostMapping("/{id}")

@@ -32,7 +32,6 @@ public class UsersController {
 
     @PostMapping("/{id}")
     public ResponseEntity<Users> register(@PathVariable(value = "id") Long id, @RequestBody UsersDto user) {
-        //System.out.println(user.getAddress());
         Roles roles = rolesRepository.findById(id).get();
         Users users = new Users();
         users.setRoles(roles);
@@ -51,8 +50,13 @@ public class UsersController {
         return usersRepository.findById(id);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable(value = "id") Long id) {
+        usersRepository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("deleted");
+    }
 
-    @GetMapping()
+    @GetMapping
     public Page<Users> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
                               @RequestParam(defaultValue = "10") Integer pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize);

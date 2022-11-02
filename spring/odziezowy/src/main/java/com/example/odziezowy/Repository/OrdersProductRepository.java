@@ -13,4 +13,6 @@ public interface OrdersProductRepository extends JpaRepository<OrdersProducts, L
 
     Page<OrdersProducts> findAll(Pageable pageable);
     List<OrdersProducts> findAllByOrders(Optional<Orders> orders);
+
+    List<OrdersProducts> findAllByOrdersIn(List<Orders> orders);
 }

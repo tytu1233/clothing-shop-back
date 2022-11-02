@@ -7,6 +7,7 @@ import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Repository.OrdersProductRepository;
 import com.example.odziezowy.Repository.OrdersRepository;
 import com.example.odziezowy.Repository.ProductsRepository;
+import com.example.odziezowy.Service.OrdersProductsService;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,10 +29,12 @@ public class OrdersProductController {
     private OrdersRepository ordersRepository;
     private ProductsRepository productsRepository;
 
+    private final OrdersProductsService ordersProductsService;
     @Autowired
-    public OrdersProductController(OrdersProductRepository ordersProductRepository, OrdersRepository ordersRepository, ProductsRepository productsRepository) {
+    public OrdersProductController(OrdersProductRepository ordersProductRepository, OrdersRepository ordersRepository, ProductsRepository productsRepository, OrdersProductsService ordersProductsService) {
         this.ordersProductRepository = ordersProductRepository;
         this.ordersRepository = ordersRepository;
+        this.ordersProductsService = ordersProductsService;
         this.productsRepository = productsRepository;
     }
 
@@ -46,6 +49,12 @@ public class OrdersProductController {
     public List<OrdersProducts> getAllByOrderId(@PathVariable(value = "id") Long id) {
 
         return ordersProductRepository.findAllByOrders(ordersRepository.findById(id));
+    }
+
+    @GetMapping("/users/{id}")
+    public List<OrdersProducts> getAllByUsersId(@PathVariable(value = "id") Long id) {
+
+        return ordersProductsService.getAllByUsersAndOrders(id);
     }
 
     @PostMapping("/{order_id}")
