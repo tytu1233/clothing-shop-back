@@ -50,7 +50,7 @@ public class UsersController {
         return usersRepository.findById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idas}")
     public ResponseEntity<String> deleteUserById(@PathVariable(value = "id") Long id) {
         usersRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("deleted");
