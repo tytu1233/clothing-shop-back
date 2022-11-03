@@ -41,4 +41,8 @@ public class Products {
     @JsonBackReference
     private List<OrdersProducts> ordersProductses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "productsId", orphanRemoval = true)
+    @JsonBackReference
+    private List<Opinions> opinionses = new ArrayList<>();
+
 }

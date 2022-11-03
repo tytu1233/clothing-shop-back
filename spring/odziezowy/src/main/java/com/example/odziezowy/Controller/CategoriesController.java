@@ -15,24 +15,17 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/categories")
 public class CategoriesController {
-
-    private final CategoriesRepository categoriesRepository;
     private final CategoriesService categoriesService;
 
     @Autowired
-    public CategoriesController(CategoriesRepository categoriesRepository, CategoriesService categoriesService) {
-        this.categoriesRepository = categoriesRepository;
+    public CategoriesController(CategoriesService categoriesService) {
         this.categoriesService = categoriesService;
     }
 
-
-    @GetMapping()
-    public Page<Categories> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
+    @GetMapping
+    public Page<Categories> getAllCategories(@RequestParam(defaultValue = "0") Integer pageNo,
                                    @RequestParam(defaultValue = "10") Integer pageSize) {
-
-        Pageable paging = PageRequest.of(pageNo, pageSize);
-        return categoriesRepository.findAll(paging);
-
+        return categoriesService.getAllCategoriesService(pageNo, pageSize);
     }
 
     @GetMapping("/main/{number}")

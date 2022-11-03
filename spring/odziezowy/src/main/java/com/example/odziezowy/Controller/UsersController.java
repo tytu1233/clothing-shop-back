@@ -5,6 +5,7 @@ import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Repository.RolesRepository;
 import com.example.odziezowy.Repository.UsersRepository;
+import com.example.odziezowy.Service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,28 +22,19 @@ import java.util.Optional;
 public class UsersController {
 
     private UsersRepository usersRepository;
-
+    private final UsersService usersService;
     private RolesRepository rolesRepository;
 
     @Autowired
-    public UsersController(UsersRepository usersRepository, RolesRepository rolesRepository) {
+    public UsersController(UsersRepository usersRepository, RolesRepository rolesRepository, UsersService usersService) {
         this.usersRepository = usersRepository;
+        this.usersService = usersService;
         this.rolesRepository = rolesRepository;
     }
 
     @PostMapping("/{id}")
     public ResponseEntity<Users> register(@PathVariable(value = "id") Long id, @RequestBody UsersDto user) {
-        Roles roles = rolesRepository.findById(id).get();
-        Users users = new Users();
-        users.setRoles(roles);
-        users.setName(user.getName());
-        users.setSurname(user.getSurname());
-        users.setLogin(user.getLogin());
-        users.setPassword(user.getPassword());
-        users.setEmail(user.getEmail());
-        users.setAddress(user.getAddress());
-        usersRepository.save(users);
-        return new ResponseEntity<>(users, HttpStatus.CREATED);
+        return usersService.registerUserService(id, user);
     }
 
     @GetMapping("/{id}")

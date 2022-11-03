@@ -3,8 +3,12 @@ package com.example.odziezowy.Service;
 import com.example.odziezowy.Model.Categories;
 import com.example.odziezowy.Repository.CategoriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -32,6 +36,13 @@ public class CategoriesService {
         }
 
         return randomCategories;
+    }
+
+    public Page<Categories> getAllCategoriesService(Integer pageNo, Integer pageSize) {
+
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        return categoriesRepository.findAll(paging);
+
     }
 
 }

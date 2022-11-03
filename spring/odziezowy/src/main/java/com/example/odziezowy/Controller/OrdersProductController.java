@@ -25,30 +25,21 @@ import java.util.Optional;
 @RequestMapping("/ordersproduct")
 public class OrdersProductController {
 
-    private OrdersProductRepository ordersProductRepository;
-    private OrdersRepository ordersRepository;
-    private ProductsRepository productsRepository;
-
     private final OrdersProductsService ordersProductsService;
     @Autowired
-    public OrdersProductController(OrdersProductRepository ordersProductRepository, OrdersRepository ordersRepository, ProductsRepository productsRepository, OrdersProductsService ordersProductsService) {
-        this.ordersProductRepository = ordersProductRepository;
-        this.ordersRepository = ordersRepository;
+    public OrdersProductController(OrdersProductsService ordersProductsService) {
         this.ordersProductsService = ordersProductsService;
-        this.productsRepository = productsRepository;
     }
 
     @GetMapping()
-    public Page<OrdersProducts> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
+    public Page<OrdersProducts> getAllOrdersProducts(@RequestParam(defaultValue = "0") Integer pageNo,
                                        @RequestParam(defaultValue = "10") Integer pageSize) {
-        Pageable paging = PageRequest.of(pageNo, pageSize);
-        return ordersProductRepository.findAll(paging);
+        return ordersProductsService.getAllOrdersProductsService(pageNo, pageSize);
     }
 
     @GetMapping("/{id}")
     public List<OrdersProducts> getAllByOrderId(@PathVariable(value = "id") Long id) {
-
-        return ordersProductRepository.findAllByOrders(ordersRepository.findById(id));
+        return ordersProductsService.getAllByOrderIdService(id);
     }
 
     @GetMapping("/users/{id}")
@@ -59,16 +50,7 @@ public class OrdersProductController {
 
     @PostMapping("/{order_id}")
     public ResponseEntity<OrdersProducts> createOrderProduct(@PathVariable(value="order_id") Long order_id, @RequestBody ProductsDto productsDto) {
-        Orders orders = ordersRepository.findByIdOrders(order_id);
-        OrdersProducts ordersProducts = new OrdersProducts();
-        productsRepository.findById(productsDto.getId()).map(products1 -> {
-            ordersProducts.setProducts(products1);
-            ordersProducts.setOrders(orders);
-            ordersProducts.setQuantity(productsDto.getQuantity());
-            return ordersProductRepository.save(ordersProducts);
-        });
-
-        return new ResponseEntity<>(ordersProducts, HttpStatus.CREATED);
+        return ordersProductsService.createOrderProductService(order_id, productsDto);
     }
 
 }
