@@ -28,5 +28,10 @@ public class SizesController {
         Products products = productsRepository.findById(id).get();
         return sizesRepository.findAllByProductsSizes(products);
     }
+    @GetMapping("/names")
+    List<Sizes> getAllNames() {
+        return sizesRepository.findNamesDistinct();
+    }
+
 
 }
