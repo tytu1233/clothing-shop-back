@@ -6,6 +6,7 @@ import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Exception.ResourceNotFoundException;
 import com.example.odziezowy.Model.Orders;
 import com.example.odziezowy.Model.OrdersProducts;
+import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.Repository.OrdersProductRepository;
 import com.example.odziezowy.Repository.OrdersRepository;
@@ -49,14 +50,16 @@ public class OrdersProductsService {
     }
 
     public ResponseEntity<OrdersProducts> createOrderProductService(Long order_id, ProductsDto productsDto) {
+        System.out.println(productsDto.getSize());
         Orders orders = ordersRepository.findByIdOrders(order_id);
         OrdersProducts ordersProducts = new OrdersProducts();
-        productsRepository.findById(productsDto.getId()).map(products1 -> {
-            ordersProducts.setProducts(products1);
-            ordersProducts.setOrders(orders);
-            ordersProducts.setQuantity(productsDto.getQuantity());
-            return ordersProductRepository.save(ordersProducts);
-        });
+        String id = productsDto.getId().replaceAll("[^0-9.]", "");
+        Products products = productsRepository.findById(Long.valueOf(id)).get();
+        ordersProducts.setSize(productsDto.getSize());
+        ordersProducts.setProducts(products);
+        ordersProducts.setOrders(orders);
+        ordersProducts.setQuantity(productsDto.getQuantity());
+        ordersProductRepository.save(ordersProducts);
 
         return new ResponseEntity<>(ordersProducts, HttpStatus.CREATED);
     }

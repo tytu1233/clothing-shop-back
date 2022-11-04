@@ -19,6 +19,9 @@ public class OrdersProducts {
     @Column
     private int quantity;
 
+    @Column
+    private String size;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     @JoinColumn(name = "orders_id")

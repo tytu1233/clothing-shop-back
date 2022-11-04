@@ -1,29 +1,30 @@
 package com.example.odziezowy.Model;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "roles")
-public class Roles {
+@Table(name = "sizes")
+public class Sizes {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long id_role;
+    private Long idSize;
 
     @Column
-    private String role_name;
+    private String sizeName;
 
-    @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private List<Users> user_id = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JoinColumn(name = "products_id")
+    private Products productsSizes;
 
 }
