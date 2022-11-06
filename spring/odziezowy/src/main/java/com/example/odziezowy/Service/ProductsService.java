@@ -27,22 +27,26 @@ public class ProductsService {
 
 
     public Page<Products> getFilteredData(List<String> brands, List<String> sizes, Double min, Double max, Integer pageNo, Integer pageSize) {
-        System.out.println(sizes);
+        System.out.println(brands);
         Pageable paging = PageRequest.of(pageNo, pageSize);
         if(!(brands.isEmpty()) && !(sizes.isEmpty()) && !(min<0) && !(max<0))
-           return productsRepository.findDistinctByNameInAndSizesesInAndPriceBetween(paging, brands, sizesRepository.findAllBySizeNameIn(sizes), min, max);
+           return productsRepository.findDistinctByBrandInAndSizesesInAndPriceBetween(paging, brands, sizesRepository.findAllBySizeNameIn(sizes), min, max);
         if(!(brands.isEmpty()) && !(min<0) && !(max<0))
-            return productsRepository.findAllByNameInAndPriceBetween(paging, brands, min, max);
+            return productsRepository.findAllByBrandInAndPriceBetween(paging, brands, min, max);
         if(!(sizes.isEmpty()) && !(min<0) && !(max<0))
             return productsRepository.findDistinctBySizesesInAndPriceBetween(paging, sizesRepository.findAllBySizeNameIn(sizes), min, max);
         if(min>0 && max>0)
             return productsRepository.findAllByPriceBetween(paging, min, max);
         if(!brands.isEmpty())
-            return productsRepository.findAllByNameIn(paging, brands);
+            return productsRepository.findAllByBrandIn(paging, brands);
         if(!sizes.isEmpty()) {
             return productsRepository.findDistinctBySizesesIn(paging, sizesRepository.findAllBySizeNameIn(sizes));
         }
         return productsRepository.findAll(paging);
+    }
+
+    public List<Products> findAllProducersService() {
+        return productsRepository.findDistinctByName();
     }
 
 

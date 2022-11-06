@@ -54,4 +54,9 @@ public class ProductsController {
         return productsService.getFilteredData(brands, sizes, minPrice, maxPrice, pageNo, pageSize);
     }
 
+    @GetMapping("/producers")
+    public List<Products> findAllProducers() {
+        return productsService.findAllProducersService();
+    }
+
 }
