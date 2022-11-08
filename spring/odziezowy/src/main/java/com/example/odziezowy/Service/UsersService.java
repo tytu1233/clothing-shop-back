@@ -1,6 +1,7 @@
 package com.example.odziezowy.Service;
 
 import com.example.odziezowy.DTOS.UsersDto;
+import com.example.odziezowy.Exception.ResourceNotFoundException;
 import com.example.odziezowy.Model.Roles;
 import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.Repository.RolesRepository;
@@ -22,6 +23,22 @@ public class UsersService {
     public UsersService(UsersRepository usersRepository, RolesRepository rolesRepository) {
         this.usersRepository = usersRepository;
         this.rolesRepository = rolesRepository;
+    }
+
+    public ResponseEntity<Users> updateUserService(Long id, UsersDto usersDto) {
+        Users updateUser = usersRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can not be updated " + id));
+        Roles roles = rolesRepository.findByRoleName(usersDto.getRoles());
+        updateUser.setRoles(roles);
+        updateUser.setName(usersDto.getName());
+        updateUser.setSurname(usersDto.getSurname());
+        updateUser.setLogin(usersDto.getLogin());
+        updateUser.setPassword(usersDto.getPassword());
+        updateUser.setEmail(usersDto.getEmail());
+        updateUser.setAddress(usersDto.getAddress());
+
+        usersRepository.save(updateUser);
+        return new ResponseEntity<>(updateUser, HttpStatus.ACCEPTED);
     }
 
 

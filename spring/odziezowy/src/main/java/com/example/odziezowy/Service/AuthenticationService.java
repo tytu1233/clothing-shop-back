@@ -60,7 +60,7 @@ public class AuthenticationService {
             roles = users.getRoles();
             this.authenticatedUsers.put("status", "pass");
             this.authenticatedUsers.put("user_id", users.getId_user());
-            this.authenticatedUsers.put("role", roles.getRole_name());
+            this.authenticatedUsers.put("role", roles.getRoleName());
 
             return ResponseEntity.status(HttpStatus.FOUND).body(this.authenticatedUsers);
         }

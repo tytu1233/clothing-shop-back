@@ -52,7 +52,7 @@ public class UsersController {
     public Page<Users> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
                               @RequestParam(defaultValue = "10") Integer pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize);
-        return usersRepository.findAllByRoles(paging, rolesRepository.findById(Long.valueOf(2)));
+        return usersRepository.findAll(paging);
     }
 
     @GetMapping("/email/{email}")
@@ -62,6 +62,12 @@ public class UsersController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("zajete");
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody UsersDto usersDto) {
+        return usersService.updateUserService(id, usersDto);
+    }
+
 
     @GetMapping("/login/{login}")
     public ResponseEntity<String> getUserByLogin(@PathVariable(value = "login") String login) {

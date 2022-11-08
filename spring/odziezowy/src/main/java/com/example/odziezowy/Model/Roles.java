@@ -20,7 +20,7 @@ public class Roles {
     private Long id_role;
 
     @Column
-    private String role_name;
+    private String roleName;
 
     @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference

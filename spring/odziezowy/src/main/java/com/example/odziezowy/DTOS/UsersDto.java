@@ -10,10 +10,12 @@ import java.io.Serializable;
  */
 @Data
 public class UsersDto implements Serializable {
+    private final Long id_user;
     private final String email;
     private final String login;
     private final String password;
     private final String name;
     private final String surname;
     private final String address;
+    private final String roles;
 }
