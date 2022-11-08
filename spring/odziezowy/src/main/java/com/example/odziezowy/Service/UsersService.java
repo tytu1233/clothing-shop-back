@@ -35,7 +35,9 @@ public class UsersService {
         updateUser.setLogin(usersDto.getLogin());
         updateUser.setPassword(usersDto.getPassword());
         updateUser.setEmail(usersDto.getEmail());
-        updateUser.setAddress(usersDto.getAddress());
+        updateUser.setCity(usersDto.getCity());
+        updateUser.setStreet(usersDto.getStreet());
+        updateUser.setZipCode(usersDto.getZipCode());
 
         usersRepository.save(updateUser);
         return new ResponseEntity<>(updateUser, HttpStatus.ACCEPTED);
@@ -51,7 +53,9 @@ public class UsersService {
         users.setLogin(user.getLogin());
         users.setPassword(user.getPassword());
         users.setEmail(user.getEmail());
-        users.setAddress(user.getAddress());
+        users.setCity(user.getCity());
+        users.setZipCode(user.getZipCode());
+        users.setStreet(user.getStreet());
         usersRepository.save(users);
         return new ResponseEntity<>(users, HttpStatus.CREATED);
     }

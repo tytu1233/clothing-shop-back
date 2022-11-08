@@ -42,7 +42,15 @@ public class Users {
 
     @Basic
     @Column
-    private String address;
+    private String city;
+
+    @Basic
+    @Column
+    private String zipCode;
+
+    @Basic
+    @Column
+    private String street;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
