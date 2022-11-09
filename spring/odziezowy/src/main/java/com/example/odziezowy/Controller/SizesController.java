@@ -4,6 +4,7 @@ import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Model.Sizes;
 import com.example.odziezowy.Repository.ProductsRepository;
 import com.example.odziezowy.Repository.SizesRepository;
+import com.example.odziezowy.Service.SizesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,24 +15,27 @@ import java.util.List;
 @RequestMapping("/sizes")
 public class SizesController {
 
-    private final SizesRepository sizesRepository;
-    private final ProductsRepository productsRepository;
+    private final SizesService sizesService;
 
     @Autowired
-    public SizesController(SizesRepository sizesRepository, ProductsRepository productsRepository) {
-        this.sizesRepository = sizesRepository;
-        this.productsRepository = productsRepository;
+    public SizesController(SizesService sizesService) {
+        this.sizesService = sizesService;
     }
 
     @GetMapping("/{id}")
-    List<Sizes> getAllSizesForProduct(@PathVariable(value = "id") Long id) {
-        Products products = productsRepository.findById(id).get();
-        return sizesRepository.findAllByProductsSizes(products);
+    public List<Sizes> getAllSizesForProduct(@PathVariable(value = "id") Long id) {
+        return sizesService.getAllSizesForProductService(id);
     }
     @GetMapping("/names")
-    List<Sizes> getAllNames() {
-        return sizesRepository.findNamesDistinct();
+    public List<Sizes> getAllNames() {
+        return sizesService.getAllNamesService();
     }
+
+    @GetMapping("/check")
+    public List<Sizes> checkQuantity(@RequestParam List<String> ids, @RequestParam List <String> sizesNames) {
+        return sizesService.checkQuantityService(ids, sizesNames);
+    }
+
 
 
 }

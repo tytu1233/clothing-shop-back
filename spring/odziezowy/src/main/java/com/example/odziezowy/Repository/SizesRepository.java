@@ -14,6 +14,9 @@ public interface SizesRepository extends JpaRepository<Sizes, Long> {
     List<Sizes> findAllByProductsSizes(Products products);
 
     List<Sizes> findAllBySizeNameIn(List<String> size);
+
     @Query(value = "SELECT * FROM sizes GROUP BY size_name", nativeQuery = true)
     List<Sizes> findNamesDistinct();
+
+    List<Sizes> findAllBySizeNameInAndProductsSizesIn(List<String> sizes, List<Products> products);
 }

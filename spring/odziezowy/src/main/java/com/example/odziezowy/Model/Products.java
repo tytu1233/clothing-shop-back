@@ -34,9 +34,6 @@ public class Products {
     private String brand;
 
     @Column
-    private Long amount;
-
-    @Column
     private String image;
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
