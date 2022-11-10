@@ -16,10 +16,10 @@ public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Long id_category;
+    private Long idCategory;
 
     @Column
-    private String category_name;
+    private String categoryName;
 
     @OneToMany(mappedBy = "categories", orphanRemoval = true)
     @JsonBackReference

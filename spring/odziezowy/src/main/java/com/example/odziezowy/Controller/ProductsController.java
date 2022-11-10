@@ -49,9 +49,10 @@ public class ProductsController {
                                      @RequestParam(defaultValue = "12") Integer pageSize,
                                      @RequestParam List<String> brands,
                                      @RequestParam List<String> sizes,
+                                     @RequestParam List<String> categories,
                                      @RequestParam Double minPrice,
                                      @RequestParam Double maxPrice) {
-        return productsService.getFilteredData(brands, sizes, minPrice, maxPrice, pageNo, pageSize);
+        return productsService.getFilteredData(brands, sizes, categories, minPrice, maxPrice, pageNo, pageSize);
     }
 
     @GetMapping("/producers")

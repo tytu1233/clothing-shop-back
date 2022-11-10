@@ -10,4 +10,6 @@ import java.util.List;
 public interface CategoriesRepository extends JpaRepository<Categories, Long> {
     Page<Categories> findAll(Pageable pageable);
 
+    List<Categories> findAllByCategoryNameIn(List<String> categories);
+
 }
