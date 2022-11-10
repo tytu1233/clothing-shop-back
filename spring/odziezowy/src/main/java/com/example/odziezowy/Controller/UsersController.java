@@ -23,13 +23,11 @@ public class UsersController {
 
     private UsersRepository usersRepository;
     private final UsersService usersService;
-    private RolesRepository rolesRepository;
 
     @Autowired
-    public UsersController(UsersRepository usersRepository, RolesRepository rolesRepository, UsersService usersService) {
+    public UsersController(UsersRepository usersRepository, UsersService usersService) {
         this.usersRepository = usersRepository;
         this.usersService = usersService;
-        this.rolesRepository = rolesRepository;
     }
 
     @PostMapping("/{id}")
@@ -44,8 +42,7 @@ public class UsersController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable(value = "id") Long id) {
-        usersRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("deleted");
+        return usersService.deleteUserService(id);
     }
 
     @GetMapping

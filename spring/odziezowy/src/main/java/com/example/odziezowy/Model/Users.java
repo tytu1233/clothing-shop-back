@@ -52,7 +52,7 @@ public class Users {
     @Column
     private String street;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JsonManagedReference
     @JoinColumn(name = "id_role")
     private Roles roles;

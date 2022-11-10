@@ -43,6 +43,14 @@ public class UsersService {
         return new ResponseEntity<>(updateUser, HttpStatus.ACCEPTED);
     }
 
+    public ResponseEntity<String> deleteUserService(Long id) {
+        Users users = usersRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can not find user" + id));
+
+        usersRepository.delete(users);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     public ResponseEntity<Users> registerUserService(Long id, UsersDto user) {
         Roles roles = rolesRepository.findById(id).get();

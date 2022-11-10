@@ -22,7 +22,7 @@ public class Roles {
     @Column
     private String roleName;
 
-    @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "roles")
     @JsonBackReference
     private List<Users> user_id = new ArrayList<>();
 
