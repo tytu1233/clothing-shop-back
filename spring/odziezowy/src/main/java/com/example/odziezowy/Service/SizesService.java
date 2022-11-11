@@ -32,6 +32,14 @@ public class SizesService {
         return sizesRepository.findNamesDistinct();
     }
 
+    public void updateQuantityService(Long quantity, Long id) {
+        sizesRepository.updateQunatity(quantity, id);
+    }
+
+    public Sizes findByProductAndSizeService(String sizeName, Products products) {
+        return sizesRepository.findBySizeNameAndProductsSizes(sizeName, products);
+    }
+
     public List<Sizes> checkQuantityService(List<String> ids, List <String> sizesNames) {
         List<String> result = new ArrayList<>();
         List<Products> resultProducts = new ArrayList<>();

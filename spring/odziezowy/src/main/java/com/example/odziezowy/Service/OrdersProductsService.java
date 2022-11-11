@@ -4,10 +4,7 @@ package com.example.odziezowy.Service;
 
 import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Exception.ResourceNotFoundException;
-import com.example.odziezowy.Model.Orders;
-import com.example.odziezowy.Model.OrdersProducts;
-import com.example.odziezowy.Model.Products;
-import com.example.odziezowy.Model.Users;
+import com.example.odziezowy.Model.*;
 import com.example.odziezowy.Repository.OrdersProductRepository;
 import com.example.odziezowy.Repository.OrdersRepository;
 import com.example.odziezowy.Repository.ProductsRepository;
@@ -34,11 +31,14 @@ public class OrdersProductsService {
     private final OrdersProductRepository ordersProductRepository;
     private final ProductsRepository productsRepository;
 
+    private final SizesService sizesService;
+
     @Autowired
-    public OrdersProductsService(OrdersRepository ordersRepository, UsersRepository usersRepository, OrdersProductRepository ordersProductRepository, ProductsRepository productsRepository) {
+    public OrdersProductsService(OrdersRepository ordersRepository, UsersRepository usersRepository, OrdersProductRepository ordersProductRepository, ProductsRepository productsRepository, SizesService sizesService) {
         this.ordersRepository = ordersRepository;
         this.usersRepository = usersRepository;
         this.productsRepository = productsRepository;
+        this.sizesService = sizesService;
         this.ordersProductRepository = ordersProductRepository;
     }
 
@@ -60,6 +60,8 @@ public class OrdersProductsService {
         ordersProducts.setOrders(orders);
         ordersProducts.setQuantity(productsDto.getQuantity());
         ordersProductRepository.save(ordersProducts);
+        Sizes sizes = sizesService.findByProductAndSizeService(productsDto.getSize(), products);
+        sizesService.updateQuantityService(Long.valueOf(productsDto.getQuantity()), sizes.getIdSize());
 
         return new ResponseEntity<>(ordersProducts, HttpStatus.CREATED);
     }
