@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,7 +43,7 @@ public class OpinionsService {
         Opinions opinions = new Opinions();
         opinions.setUsersOpinion(users);
         opinions.setProductsId(products);
-        opinions.setRating(opinionsDto.getRating());
+        opinions.setRating(Double.valueOf(opinionsDto.getRating()));
         opinions.setComment(opinionsDto.getComment());
         opinionsRepository.save(opinions);
         return new ResponseEntity<>(opinions, HttpStatus.CREATED);
@@ -52,6 +53,10 @@ public class OpinionsService {
         Pageable paging = PageRequest.of(pageNo, pageSize);
         Products products = productsRepository.findById(id).get();
         return opinionsRepository.findAllByProductsId(paging, products);
+    }
+
+    public List<Object[]> getAllHighRatedService() {
+        return opinionsRepository.findHighRating();
     }
 
 }

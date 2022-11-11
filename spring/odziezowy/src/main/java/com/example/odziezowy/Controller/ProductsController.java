@@ -60,4 +60,9 @@ public class ProductsController {
         return productsService.findAllProducersService();
     }
 
+    @GetMapping("/recommended")
+    public List<Products> getRecommendedProducts() {
+        return productsService.getRecommendedProductsService();
+    }
+
 }

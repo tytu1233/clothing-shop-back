@@ -1,5 +1,6 @@
 package com.example.odziezowy.Service;
 
+import com.example.odziezowy.Model.Categories;
 import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Repository.CategoriesRepository;
 import com.example.odziezowy.Repository.ProductsRepository;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,5 +63,15 @@ public class ProductsService {
     public List<Products> findAllProducersService() {
         return productsRepository.findDistinctByName();
     }
+    public List<Products> getRecommendedProductsService() {
+        List<Products> randomCategories = new ArrayList<>();
+        List<Products> copy = new ArrayList<>(productsRepository.findAll());
 
+        SecureRandom rand = new SecureRandom();
+        for (int i = 0; i < Math.min(10, productsRepository.findAll().size()); i++) {
+            randomCategories.add( copy.remove( rand.nextInt( copy.size() ) ));
+        }
+
+        return randomCategories;
+    }
 }

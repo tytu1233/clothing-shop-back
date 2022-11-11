@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -41,11 +43,14 @@ public class OrdersService {
     }
 
     public ResponseEntity<Long> createOrderService(Long id) {
+        LocalDate date = LocalDate.now();
         Users users = usersRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id: " + id));
         Orders orders = new Orders();
         orders.setUsers(users);
-        orders.setFinal_price(0.00);
+        orders.setFinalPrice(0.00);
+        orders.setStatus("W REALIZACJI");
+        orders.setDate(date);
         ordersRepository.save(orders);
         return new ResponseEntity<>(orders.getIdOrders(), HttpStatus.CREATED);
     }
@@ -53,7 +58,7 @@ public class OrdersService {
     public ResponseEntity<Long> updateOrderService(long id, String price) {
         Orders updateOrders = ordersRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not exist with id: " + id));
-        updateOrders.setFinal_price(Double.valueOf(price));
+        updateOrders.setFinalPrice(Double.valueOf(price));
 
         ordersRepository.save(updateOrders);
 

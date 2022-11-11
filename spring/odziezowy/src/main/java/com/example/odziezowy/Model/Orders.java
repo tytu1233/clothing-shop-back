@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -22,7 +23,13 @@ public class Orders {
     private Long idOrders;
 
     @Column
-    private Double final_price;
+    private Double finalPrice;
+
+    @Column
+    private String status;
+
+    @Column
+    private LocalDate date;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonManagedReference

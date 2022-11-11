@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 public interface ProductsRepository extends JpaRepository<Products, Long> {
     Page<Products> findAll(Pageable pageable);
+    List<Products> findAll();
     List<Products> findAllByNameContains(String name);
     @Query(value = "SELECT DISTINCT * FROM products GROUP BY brand" , nativeQuery = true)
     List<Products> findDistinctByName();

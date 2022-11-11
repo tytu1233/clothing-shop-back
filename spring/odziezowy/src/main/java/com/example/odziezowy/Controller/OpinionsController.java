@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,6 +41,11 @@ public class OpinionsController {
     public ResponseEntity<Opinions> createOpinions(@RequestParam Long userId,
                                                    @RequestParam Long productId, @RequestBody OpinionsDto opinionsDto) {
         return opinionsService.createOpinionsService(userId, productId, opinionsDto);
+    }
+
+    @GetMapping("/rating")
+    public List<Object[]> getAllHighRated() {
+        return opinionsService.getAllHighRatedService();
     }
 
 }

@@ -17,7 +17,7 @@ public class Opinions {
     private Long idOpinion;
 
     @Column
-    private int rating;
+    private Double rating;
 
     @Column
     private String comment;
