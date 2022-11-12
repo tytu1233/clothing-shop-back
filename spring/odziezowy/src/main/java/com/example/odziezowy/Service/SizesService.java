@@ -1,9 +1,12 @@
 package com.example.odziezowy.Service;
 
+import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Model.Sizes;
 import com.example.odziezowy.Repository.ProductsRepository;
 import com.example.odziezowy.Repository.SizesRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +41,16 @@ public class SizesService {
 
     public Sizes findByProductAndSizeService(String sizeName, Products products) {
         return sizesRepository.findBySizeNameAndProductsSizes(sizeName, products);
+    }
+
+    public ResponseEntity<String> checkQuantityForItemService(ProductsDto productsDto) {
+        String id = productsDto.getId().replaceAll("[^0-9.]", "");
+        Products products = productsRepository.findById(Long.valueOf(id)).get();
+        Sizes sizes = sizesRepository.findBySizeNameAndProductsSizes(productsDto.getSize(), products);
+        if(sizes.getAmount() < productsDto.getQuantity()) {
+            return new ResponseEntity<>("zle", HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>("dobrze", HttpStatus.OK);
     }
 
     public List<Sizes> checkQuantityService(List<String> ids, List <String> sizesNames) {

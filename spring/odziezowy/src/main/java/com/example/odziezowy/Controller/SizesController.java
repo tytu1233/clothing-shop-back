@@ -1,11 +1,13 @@
 package com.example.odziezowy.Controller;
 
+import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Model.Sizes;
 import com.example.odziezowy.Repository.ProductsRepository;
 import com.example.odziezowy.Repository.SizesRepository;
 import com.example.odziezowy.Service.SizesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +36,11 @@ public class SizesController {
     @GetMapping("/check")
     public List<Sizes> checkQuantity(@RequestParam List<String> ids, @RequestParam List <String> sizesNames) {
         return sizesService.checkQuantityService(ids, sizesNames);
+    }
+
+    @PostMapping("/quantity")
+    public ResponseEntity<String> checkQuantityForItem(@RequestBody ProductsDto productsDto) {
+        return sizesService.checkQuantityForItemService(productsDto);
     }
 
 
