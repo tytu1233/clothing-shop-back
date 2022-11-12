@@ -22,12 +22,12 @@ public class OrdersProducts {
     @Column
     private String size;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = "orders_id")
     private Orders orders;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = "products_id")
     private Products products;

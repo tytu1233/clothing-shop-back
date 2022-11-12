@@ -31,7 +31,7 @@ public class Orders {
     @Column
     private LocalDate date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = "id_user")
     private Users users;

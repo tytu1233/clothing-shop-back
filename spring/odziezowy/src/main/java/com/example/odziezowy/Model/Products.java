@@ -35,7 +35,7 @@ public class Products {
 
     @Column
     private String image;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = "categories_id")
     private Categories categories;
@@ -44,7 +44,7 @@ public class Products {
     @JsonBackReference
     private List<OrdersProducts> ordersProductses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "productsId", orphanRemoval = true)
+    @OneToMany(mappedBy = "productsId", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<Opinions> opinionses = new ArrayList<>();
 

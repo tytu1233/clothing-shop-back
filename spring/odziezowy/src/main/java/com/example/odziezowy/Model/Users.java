@@ -61,7 +61,7 @@ public class Users {
     @JsonBackReference
     private List<Orders> orders_id = new ArrayList<>();
 
-    @OneToMany(mappedBy = "usersOpinion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usersOpinion")
     @JsonBackReference
     private List<Opinions> opinionses = new ArrayList<>();
 

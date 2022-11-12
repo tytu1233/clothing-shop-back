@@ -25,7 +25,7 @@ public class Sizes {
     @Column
     private Long amount;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = "products_id")
     private Products productsSizes;

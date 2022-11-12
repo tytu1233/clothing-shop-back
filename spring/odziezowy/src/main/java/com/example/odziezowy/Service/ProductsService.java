@@ -1,7 +1,9 @@
 package com.example.odziezowy.Service;
 
+import com.example.odziezowy.Exception.ResourceNotFoundException;
 import com.example.odziezowy.Model.Categories;
 import com.example.odziezowy.Model.Products;
+import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.Repository.CategoriesRepository;
 import com.example.odziezowy.Repository.ProductsRepository;
 import com.example.odziezowy.Repository.SizesRepository;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -73,5 +77,13 @@ public class ProductsService {
         }
 
         return randomCategories;
+    }
+
+    public ResponseEntity<String> deleteProductService(Long id) {
+        Products products = productsRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can not find user" + id));
+
+        productsRepository.delete(products);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
