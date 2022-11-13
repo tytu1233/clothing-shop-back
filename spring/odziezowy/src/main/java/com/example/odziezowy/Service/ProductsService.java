@@ -1,5 +1,6 @@
 package com.example.odziezowy.Service;
 
+import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Exception.ResourceNotFoundException;
 import com.example.odziezowy.Model.Categories;
 import com.example.odziezowy.Model.Products;
@@ -85,5 +86,19 @@ public class ProductsService {
 
         productsRepository.delete(products);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> createProdcutService(String name, ProductsDto productsDto) {
+        Categories categories = categoriesRepository.findByCategoryName(name);
+        Products products = new Products();
+        products.setCategories(categories);
+        products.setName(productsDto.getName());
+        products.setBrand(productsDto.getBrand());
+        products.setImage(productsDto.getImage());
+        products.setPrice(productsDto.getPrice());
+        products.setDescription(productsDto.getDescription());
+        productsRepository.save(products);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

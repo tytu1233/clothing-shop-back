@@ -1,6 +1,8 @@
 package com.example.odziezowy.Controller;
 
 
+import com.example.odziezowy.DTOS.ProductsDto;
+import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Repository.ProductsRepository;
 import com.example.odziezowy.Service.ProductsService;
@@ -69,6 +71,11 @@ public class ProductsController {
     @GetMapping("/recommended")
     public List<Products> getRecommendedProducts() {
         return productsService.getRecommendedProductsService();
+    }
+
+    @PostMapping("/{name}")
+    public ResponseEntity<String> createProduct(@PathVariable(value = "name") String name, @RequestBody ProductsDto productsDto) {
+        return productsService.createProdcutService(name, productsDto);
     }
 
 }

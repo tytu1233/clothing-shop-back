@@ -8,6 +8,8 @@ import com.example.odziezowy.Repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,31 +20,37 @@ public class AuthenticationService {
     private final Map<String, Users> authenticatedUsersMap;
     private final Map<String, Object> authenticatedUsers;
     private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public AuthenticationService(UsersRepository usersRepository) {
         this.authenticatedUsers = new HashMap<>();
         this.usersRepository = usersRepository;
         this.authenticatedUsersMap = new HashMap<>();
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public AuthenticationResponse authenticate(Credentials credentials) {
         String username = credentials.getLogin();
         String password = credentials.getPassword();
-
         Users user;
 
         try {
-            user = this.usersRepository.findByLoginAndPassword(username, password).orElseThrow();
+            user = this.usersRepository.findByLogin(username).get();
         } catch (NoSuchElementException e) {
             return new AuthenticationResponse("-1", (long) -1);
         }
 
-        UUID uuid = UUID.randomUUID();
-        String token = uuid.toString();
-        this.authenticatedUsersMap.put(token, user);
+        boolean isPasswordMatches = passwordEncoder.matches(password, user.getPassword());
+        if(isPasswordMatches) {
+            UUID uuid = UUID.randomUUID();
+            String token = uuid.toString();
+            this.authenticatedUsersMap.put(token, user);
 
-        return new AuthenticationResponse(token, user.getId_user());
+            return new AuthenticationResponse(token, user.getId_user());
+        } else {
+            return new AuthenticationResponse("-1", (long) -1);
+        }
     }
 
     public boolean logout(AuthenticationResponse authenticationResponse) {

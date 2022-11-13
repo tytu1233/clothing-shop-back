@@ -9,6 +9,8 @@ import com.example.odziezowy.Repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +20,12 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final RolesRepository rolesRepository;
-
+    private final PasswordEncoder passwordEncoder;
     @Autowired
     public UsersService(UsersRepository usersRepository, RolesRepository rolesRepository) {
         this.usersRepository = usersRepository;
         this.rolesRepository = rolesRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public ResponseEntity<Users> updateUserService(Long id, UsersDto usersDto) {
@@ -33,7 +36,8 @@ public class UsersService {
         updateUser.setName(usersDto.getName());
         updateUser.setSurname(usersDto.getSurname());
         updateUser.setLogin(usersDto.getLogin());
-        updateUser.setPassword(usersDto.getPassword());
+        String encodedPassword = this.passwordEncoder.encode(usersDto.getPassword());
+        updateUser.setPassword(encodedPassword);
         updateUser.setEmail(usersDto.getEmail());
         updateUser.setCity(usersDto.getCity());
         updateUser.setStreet(usersDto.getStreet());
@@ -59,7 +63,8 @@ public class UsersService {
         users.setName(user.getName());
         users.setSurname(user.getSurname());
         users.setLogin(user.getLogin());
-        users.setPassword(user.getPassword());
+        String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+        users.setPassword(encodedPassword);
         users.setEmail(user.getEmail());
         users.setCity(user.getCity());
         users.setZipCode(user.getZipCode());

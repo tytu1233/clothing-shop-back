@@ -12,4 +12,6 @@ public interface CategoriesRepository extends JpaRepository<Categories, Long> {
 
     List<Categories> findAllByCategoryNameIn(List<String> categories);
 
+    Categories findByCategoryName(String name);
+
 }

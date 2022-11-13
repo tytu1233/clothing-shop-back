@@ -1,5 +1,6 @@
 package com.example.odziezowy.DTOS;
 
+import com.example.odziezowy.Model.Categories;
 import com.example.odziezowy.Model.Products;
 import lombok.Data;
 
@@ -13,4 +14,10 @@ public class ProductsDto implements Serializable {
     private final String id;
     private final int quantity;
     private final String size;
+    private final String name;
+    private final Double price;
+    private final String description;
+    private final String brand;
+    private final String image;
+    private final String category;
 }
