@@ -3,18 +3,20 @@ package com.example.odziezowy.DTOS;
 import com.example.odziezowy.Model.Orders;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  * A DTO for the {@link Orders} entity
  */
 @Data
-public class OrdersDto implements Serializable {
-    private final Long idOrders;
+public class OrdersDtoMonthly implements Serializable {
+    private final int month;
     private final Double finalPrice;
-    private final String status;
-    private final LocalDate date;
+
+    public OrdersDtoMonthly(Double finalPrice, int month) {
+        this.month = month;
+        this.finalPrice = finalPrice;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.odziezowy.Controller;
 
 import com.example.odziezowy.DTOS.OrdersDto;
+import com.example.odziezowy.DTOS.OrdersDtoMonthly;
 import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Model.Orders;
 import com.example.odziezowy.Service.OrdersService;
@@ -41,13 +42,18 @@ public class OrdersController {
     }
 
     @PutMapping("/{id}/{price}")
-    public ResponseEntity<Long> updateOrder(@PathVariable long id, @PathVariable String price) {
+    public ResponseEntity<Long> updateOrder(@PathVariable Long id, @PathVariable String price) {
         return ordersService.updateOrderService(id, price);
     }
 
     @PutMapping("/admin")
     public ResponseEntity<Orders> updateOrderAdmin(@RequestBody OrdersDto ordersDto) {
         return ordersService.updateOrdersAdminService(ordersDto);
+    }
+
+    @GetMapping("/monthly")
+    public List<OrdersDtoMonthly> getMonthly() {
+        return ordersService.getMonthlyService();
     }
 
     @DeleteMapping("/{id}")

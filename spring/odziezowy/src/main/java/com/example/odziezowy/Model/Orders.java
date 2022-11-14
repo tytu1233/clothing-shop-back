@@ -39,5 +39,4 @@ public class Orders {
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<OrdersProducts> ordersProductses = new ArrayList<>();
-
 }
