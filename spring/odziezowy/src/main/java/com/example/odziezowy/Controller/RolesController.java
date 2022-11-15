@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/roles")
 public class RolesController {
 
-    private RolesRepository rolesRepository;
+    private final RolesRepository rolesRepository;
 
     @Autowired
     public RolesController(RolesRepository rolesRepository) {

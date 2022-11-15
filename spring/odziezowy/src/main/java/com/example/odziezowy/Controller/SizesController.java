@@ -1,10 +1,7 @@
 package com.example.odziezowy.Controller;
 
 import com.example.odziezowy.DTOS.ProductsDto;
-import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Model.Sizes;
-import com.example.odziezowy.Repository.ProductsRepository;
-import com.example.odziezowy.Repository.SizesRepository;
 import com.example.odziezowy.Service.SizesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

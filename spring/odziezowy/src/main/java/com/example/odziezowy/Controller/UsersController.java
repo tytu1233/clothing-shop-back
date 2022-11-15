@@ -1,9 +1,7 @@
 package com.example.odziezowy.Controller;
 
-import com.example.odziezowy.Model.Roles;
 import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.DTOS.UsersDto;
-import com.example.odziezowy.Repository.RolesRepository;
 import com.example.odziezowy.Repository.UsersRepository;
 import com.example.odziezowy.Service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class UsersController {
 
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
     private final UsersService usersService;
 
     @Autowired

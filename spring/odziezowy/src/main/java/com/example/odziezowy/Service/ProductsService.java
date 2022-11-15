@@ -4,7 +4,6 @@ import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Exception.ResourceNotFoundException;
 import com.example.odziezowy.Model.Categories;
 import com.example.odziezowy.Model.Products;
-import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.Repository.CategoriesRepository;
 import com.example.odziezowy.Repository.ProductsRepository;
 import com.example.odziezowy.Repository.SizesRepository;

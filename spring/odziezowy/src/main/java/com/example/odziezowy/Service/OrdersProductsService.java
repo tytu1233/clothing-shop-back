@@ -16,10 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 import java.util.List;
 
@@ -61,7 +57,7 @@ public class OrdersProductsService {
         ordersProducts.setQuantity(productsDto.getQuantity());
         ordersProductRepository.save(ordersProducts);
         Sizes sizes = sizesService.findByProductAndSizeService(productsDto.getSize(), products);
-        sizesService.updateQuantityService(Long.valueOf(productsDto.getQuantity()), sizes.getIdSize());
+        sizesService.updateQuantityService((long) productsDto.getQuantity(), sizes.getIdSize());
 
         return new ResponseEntity<>(ordersProducts, HttpStatus.CREATED);
     }

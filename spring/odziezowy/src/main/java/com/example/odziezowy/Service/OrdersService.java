@@ -2,10 +2,8 @@ package com.example.odziezowy.Service;
 
 import com.example.odziezowy.DTOS.OrdersDto;
 import com.example.odziezowy.DTOS.OrdersDtoMonthly;
-import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Exception.ResourceNotFoundException;
 import com.example.odziezowy.Model.Orders;
-import com.example.odziezowy.Model.Roles;
 import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.Repository.OrdersRepository;
 import com.example.odziezowy.Repository.UsersRepository;
@@ -17,21 +15,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
 public class OrdersService {
 
-    private OrdersRepository ordersRepository;
-    private UsersRepository usersRepository;
+    private final OrdersRepository ordersRepository;
+    private final UsersRepository usersRepository;
 
-    private MailService mailService;
+    private final MailService mailService;
 
     @Autowired
     public OrdersService(OrdersRepository ordersRepository, UsersRepository usersRepository, MailService mailService) {

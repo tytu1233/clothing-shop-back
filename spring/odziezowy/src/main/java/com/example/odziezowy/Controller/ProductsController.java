@@ -2,7 +2,6 @@ package com.example.odziezowy.Controller;
 
 
 import com.example.odziezowy.DTOS.ProductsDto;
-import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Repository.ProductsRepository;
 import com.example.odziezowy.Service.ProductsService;
@@ -21,8 +20,8 @@ import java.util.Optional;
 @RequestMapping("/products")
 public class ProductsController {
 
-    private ProductsRepository productsRepository;
-    private ProductsService productsService;
+    private final ProductsRepository productsRepository;
+    private final ProductsService productsService;
 
     @Autowired
     public ProductsController(ProductsRepository productsRepository, ProductsService productsService) {

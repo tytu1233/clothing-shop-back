@@ -1,12 +1,9 @@
 package com.example.odziezowy.Controller;
 
 import com.example.odziezowy.Model.Categories;
-import com.example.odziezowy.Repository.CategoriesRepository;
 import com.example.odziezowy.Service.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.example.odziezowy.DTOS;
 
-import com.example.odziezowy.Model.Categories;
 import com.example.odziezowy.Model.Products;
 import lombok.Data;
 

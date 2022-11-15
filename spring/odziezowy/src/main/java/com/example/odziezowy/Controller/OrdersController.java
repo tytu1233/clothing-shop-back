@@ -2,7 +2,6 @@ package com.example.odziezowy.Controller;
 
 import com.example.odziezowy.DTOS.OrdersDto;
 import com.example.odziezowy.DTOS.OrdersDtoMonthly;
-import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Model.Orders;
 import com.example.odziezowy.Service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrdersController {
 
-    private OrdersService ordersService;
+    private final OrdersService ordersService;
 
     @Autowired
     public OrdersController(OrdersService ordersService) {
