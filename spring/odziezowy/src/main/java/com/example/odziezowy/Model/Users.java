@@ -52,6 +52,10 @@ public class Users {
     @Column
     private String street;
 
+    @Basic
+    @Column
+    private Integer active;
+
     @ManyToOne()
     @JsonManagedReference
     @JoinColumn(name = "id_role")

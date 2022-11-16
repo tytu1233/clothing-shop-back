@@ -41,4 +41,5 @@ public class UsersDto implements Serializable {
     @Max(2)
     @NotBlank(message = "Rola jest wymagana")
     private final String roles;
+    private final Integer active;
 }

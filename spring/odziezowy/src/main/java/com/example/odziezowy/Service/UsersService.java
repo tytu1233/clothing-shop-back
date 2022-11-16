@@ -41,6 +41,7 @@ public class UsersService {
         updateUser.setCity(usersDto.getCity());
         updateUser.setStreet(usersDto.getStreet());
         updateUser.setZipCode(usersDto.getZipCode());
+        updateUser.setActive(usersDto.getActive());
 
         usersRepository.save(updateUser);
         return new ResponseEntity<>(updateUser, HttpStatus.ACCEPTED);
@@ -68,6 +69,7 @@ public class UsersService {
         users.setCity(user.getCity());
         users.setZipCode(user.getZipCode());
         users.setStreet(user.getStreet());
+        users.setActive(1);
         usersRepository.save(users);
         return new ResponseEntity<>(users, HttpStatus.CREATED);
     }

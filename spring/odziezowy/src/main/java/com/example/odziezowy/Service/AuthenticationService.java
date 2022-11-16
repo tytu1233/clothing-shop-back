@@ -38,18 +38,21 @@ public class AuthenticationService {
         try {
             user = this.usersRepository.findByLogin(username).get();
         } catch (NoSuchElementException e) {
-            return new AuthenticationResponse("-1", (long) -1);
+            return new AuthenticationResponse("-1", (long) -1, -1);
         }
 
         boolean isPasswordMatches = passwordEncoder.matches(password, user.getPassword());
         if(isPasswordMatches) {
             UUID uuid = UUID.randomUUID();
             String token = uuid.toString();
-            this.authenticatedUsersMap.put(token, user);
+            if(user.getActive().equals(1)) {
+                this.authenticatedUsersMap.put(token, user);
+                return new AuthenticationResponse(token, user.getId_user(), user.getActive());
+            }
 
-            return new AuthenticationResponse(token, user.getId_user());
+            return new AuthenticationResponse("-1", user.getId_user(), user.getActive());
         } else {
-            return new AuthenticationResponse("-1", (long) -1);
+            return new AuthenticationResponse("-1", (long) -1, -1);
         }
     }
 
