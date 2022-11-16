@@ -21,6 +21,10 @@ public interface SizesRepository extends JpaRepository<Sizes, Long> {
     @Query(value = "UPDATE Sizes s set s.amount = s.amount - :quantity where s.idSize = :id")
     void updateQunatity(Long quantity, Long id);
 
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Sizes s set s.amount = s.amount + :quantity where s.idSize = :id")
+    void increaseQunatity(Long quantity, Long id);
     @Query(value = "SELECT * FROM sizes GROUP BY size_name", nativeQuery = true)
     List<Sizes> findNamesDistinct();
 

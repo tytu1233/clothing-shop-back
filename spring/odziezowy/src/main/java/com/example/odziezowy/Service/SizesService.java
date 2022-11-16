@@ -37,6 +37,9 @@ public class SizesService {
         sizesRepository.updateQunatity(quantity, id);
     }
 
+    public void increaseQuantityService(Long quantity, Long id) {
+        sizesRepository.increaseQunatity(quantity, id);
+    }
     public Sizes findByProductAndSizeService(String sizeName, Products products) {
         return sizesRepository.findBySizeNameAndProductsSizes(sizeName, products);
     }
