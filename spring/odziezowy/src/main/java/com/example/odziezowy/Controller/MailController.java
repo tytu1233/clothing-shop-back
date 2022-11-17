@@ -26,16 +26,21 @@ public class MailController {
     }
 
     @GetMapping("/sendNewsletter/{email}")
-    public String sendMail(@PathVariable(value = "email") String email) throws MessagingException {
+    public String sendMail(@PathVariable(value = "email") String email){
         mailService.sendNewsletterMail(email);
         return "wysłano";
     }
 
     @PostMapping("/contact")
-    public ResponseEntity<String> sendContact(@RequestBody Map<String, Object> inputData) throws NoSuchFieldException {
+    public ResponseEntity<String> sendContact(@RequestBody Map<String, Object> inputData) {
         JSONObject jsonObj = new JSONObject(inputData);
         mailService.sendContantService(jsonObj.get("email").toString(), jsonObj.get("message").toString(), jsonObj.get("name").toString());
         return new ResponseEntity<>("wyslano", HttpStatus.OK);
     }
 
+    @GetMapping("/order/{id}")
+    public String sendNewOrderMail(@PathVariable(value = "id") Long id) {
+        mailService.sendNewOrderMailService(id);
+        return "wysłano";
+    }
 }

@@ -31,5 +31,4 @@ public class OrdersProducts {
     @JsonManagedReference
     @JoinColumn(name = "products_id")
     private Products products;
-
 }

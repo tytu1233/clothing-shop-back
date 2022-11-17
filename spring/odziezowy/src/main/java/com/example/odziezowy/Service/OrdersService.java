@@ -65,11 +65,8 @@ public class OrdersService {
                     Sizes sizes = sizesService.findByProductAndSizeService(ordersProducts.getSize(), products);
                     sizesService.increaseQuantityService((long) ordersProducts.getQuantity(), sizes.getIdSize());
                 });
-                try {
-                    mailService.sendNewsletterMail("asd");
-                } catch (MessagingException e) {
-                    throw new RuntimeException(e);
-                }
+                Users users = orders.getUsers();
+                mailService.sendOrderMail(users.getEmail(), orders.getIdOrders(), "ANULOWANO");
             }
         }));
         return ordersPage;
