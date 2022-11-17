@@ -66,7 +66,7 @@ public class OrdersService {
                     sizesService.increaseQuantityService((long) ordersProducts.getQuantity(), sizes.getIdSize());
                 });
                 try {
-                    mailService.sendMail();
+                    mailService.sendNewsletterMail("asd");
                 } catch (MessagingException e) {
                     throw new RuntimeException(e);
                 }

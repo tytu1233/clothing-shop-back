@@ -25,9 +25,9 @@ public class MailController {
         this.mailService = mailService;
     }
 
-    @GetMapping("/sendMail")
-    public String sendMail() throws MessagingException {
-        mailService.sendMail();
+    @GetMapping("/sendNewsletter/{email}")
+    public String sendMail(@PathVariable(value = "email") String email) throws MessagingException {
+        mailService.sendNewsletterMail(email);
         return "wysłano";
     }
 
