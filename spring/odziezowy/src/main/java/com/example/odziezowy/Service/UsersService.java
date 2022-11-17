@@ -2,6 +2,8 @@ package com.example.odziezowy.Service;
 
 import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Exception.ResourceNotFoundException;
+import com.example.odziezowy.Model.AuthenticationResponse;
+import com.example.odziezowy.Model.Credentials;
 import com.example.odziezowy.Model.Roles;
 import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.Repository.RolesRepository;
@@ -12,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 
 @Service
@@ -47,12 +51,44 @@ public class UsersService {
         return new ResponseEntity<>(updateUser, HttpStatus.ACCEPTED);
     }
 
+    public ResponseEntity<Users> updateUserProfileService(Long id, UsersDto usersDto) {
+        Users updateUser = usersRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can not be updated " + id));
+        updateUser.setRoles(updateUser.getRoles());
+        updateUser.setName(usersDto.getName());
+        updateUser.setSurname(usersDto.getSurname());
+        updateUser.setLogin(updateUser.getLogin());
+        String encodedPassword = this.passwordEncoder.encode(updateUser.getPassword());
+        updateUser.setPassword(encodedPassword);
+        updateUser.setEmail(updateUser.getEmail());
+        updateUser.setCity(usersDto.getCity());
+        updateUser.setStreet(usersDto.getStreet());
+        updateUser.setZipCode(usersDto.getZipCode());
+        updateUser.setActive(updateUser.getActive());
+
+        usersRepository.save(updateUser);
+        return new ResponseEntity<>(updateUser, HttpStatus.ACCEPTED);
+    }
+
     public ResponseEntity<String> deleteUserService(Long id) {
         Users users = usersRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Can not find user" + id));
 
         usersRepository.delete(users);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> passwordMatchesService(Credentials credentials) {
+        String username = credentials.getLogin();
+        String password = credentials.getPassword();
+        Users user = usersRepository.findByLogin(username).get();
+
+        boolean isPasswordMatches = passwordEncoder.matches(password, user.getPassword());
+        if(isPasswordMatches) {
+            return new ResponseEntity<>("ok", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("error", HttpStatus.FORBIDDEN);
     }
 
 

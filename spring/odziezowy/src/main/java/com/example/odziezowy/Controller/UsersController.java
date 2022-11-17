@@ -1,5 +1,6 @@
 package com.example.odziezowy.Controller;
 
+import com.example.odziezowy.Model.Credentials;
 import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Repository.UsersRepository;
@@ -63,6 +64,15 @@ public class UsersController {
         return usersService.updateUserService(id, usersDto);
     }
 
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<Users> updateUserProfile(@PathVariable Long id, @RequestBody UsersDto usersDto) {
+        return usersService.updateUserProfileService(id, usersDto);
+    }
+
+    @PostMapping("/credentials")
+    public ResponseEntity<String> passwordMatches(@RequestBody Credentials credentials) {
+        return usersService.passwordMatchesService(credentials);
+    }
 
     @GetMapping("/login/{login}")
     public ResponseEntity<String> getUserByLogin(@PathVariable(value = "login") String login) {
