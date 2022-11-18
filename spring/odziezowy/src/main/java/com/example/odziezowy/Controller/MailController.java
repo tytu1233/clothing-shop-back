@@ -1,17 +1,12 @@
 package com.example.odziezowy.Controller;
 
 import com.example.odziezowy.Service.MailService;
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 @RestController
