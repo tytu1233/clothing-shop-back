@@ -83,9 +83,12 @@
                             <tr>
                                 <td align="left" style="color: #888888; font-size: 16px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 24px;">
 
-                                    <p th:text="'Twoje zamówienie zmieniło status na ' + ${status} + ', gdyż nie odnotowano wpłaty'" style="line-height: 24px;margin-bottom:15px;">
+                                    <div th:switch="${status}">
+                                        <p th:case="ANULOWANO" style="line-height: 24px;margin-bottom:15px;">Twoje zamówienie zmieniło status na ANULOWANO, gdyż nie odnotowano wpłaty.</p>
+                                        <p th:case="WYSŁANO" style="line-height: 24px;margin-bottom:15px;">Twoje zamówienie zostało wysłane.</p>
+                                        <p th:case="ZREALIZOWANO" style="line-height: 24px;margin-bottom:15px;">Twoje zamówienie zostało zrealizowane i odebrane.</p>
+                                    </div>
 
-                                    </p>
                                     <p style="line-height: 24px">
                                         Z pozdrowieniami,</br>
                                         zespół Clothing Store

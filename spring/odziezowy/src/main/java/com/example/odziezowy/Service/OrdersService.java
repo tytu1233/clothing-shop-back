@@ -101,6 +101,8 @@ public class OrdersService {
                 sizesService.increaseQuantityService((long) ordersProducts.getQuantity(), sizes.getIdSize());
             });
         }
+        Users users = orders.getUsers();
+        mailService.sendOrderMail(users.getEmail(), orders.getIdOrders(), ordersDto.getStatus());
         ordersRepository.save(orders);
         return new ResponseEntity<>(orders, HttpStatus.ACCEPTED);
     }

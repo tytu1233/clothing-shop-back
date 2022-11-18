@@ -46,7 +46,7 @@ public class UsersController {
 
     @GetMapping
     public Page<Users> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
-                              @RequestParam(defaultValue = "10") Integer pageSize) {
+                              @RequestParam(defaultValue = "12") Integer pageSize) {
         Pageable paging = PageRequest.of(pageNo, pageSize);
         return usersRepository.findAll(paging);
     }

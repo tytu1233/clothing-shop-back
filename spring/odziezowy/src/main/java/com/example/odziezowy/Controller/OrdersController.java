@@ -25,7 +25,7 @@ public class OrdersController {
 
     @GetMapping
     public Page<Orders> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
-                               @RequestParam(defaultValue = "10") Integer pageSize) {
+                               @RequestParam(defaultValue = "12") Integer pageSize) {
 
         return ordersService.getAllSerivce(pageNo, pageSize);
     }
