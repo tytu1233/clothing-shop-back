@@ -39,8 +39,6 @@ public class UsersService {
         updateUser.setName(usersDto.getName());
         updateUser.setSurname(usersDto.getSurname());
         updateUser.setLogin(usersDto.getLogin());
-        String encodedPassword = this.passwordEncoder.encode(usersDto.getPassword());
-        updateUser.setPassword(encodedPassword);
         updateUser.setEmail(usersDto.getEmail());
         updateUser.setCity(usersDto.getCity());
         updateUser.setStreet(usersDto.getStreet());
@@ -58,8 +56,6 @@ public class UsersService {
         updateUser.setName(usersDto.getName());
         updateUser.setSurname(usersDto.getSurname());
         updateUser.setLogin(updateUser.getLogin());
-        String encodedPassword = this.passwordEncoder.encode(updateUser.getPassword());
-        updateUser.setPassword(encodedPassword);
         updateUser.setEmail(updateUser.getEmail());
         updateUser.setCity(usersDto.getCity());
         updateUser.setStreet(usersDto.getStreet());
@@ -108,5 +104,14 @@ public class UsersService {
         users.setActive(1);
         usersRepository.save(users);
         return new ResponseEntity<>(users, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<String> changePasswordService(Long id, String password) {
+        Users updateUser = usersRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can not be updated " + id));
+        String encodedPassword = this.passwordEncoder.encode(password);
+        updateUser.setPassword(encodedPassword);
+        usersRepository.save(updateUser);
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 }

@@ -44,6 +44,11 @@ public class UsersController {
         return usersService.deleteUserService(id);
     }
 
+    @PostMapping("/password/{password}/{id}")
+    public ResponseEntity<String> changePassword(@PathVariable(value = "password") String password, @PathVariable(value = "id") Long id) {
+        return usersService.changePasswordService(id, password);
+    }
+
     @GetMapping
     public Page<Users> getAll(@RequestParam(defaultValue = "0") Integer pageNo,
                               @RequestParam(defaultValue = "12") Integer pageSize) {
