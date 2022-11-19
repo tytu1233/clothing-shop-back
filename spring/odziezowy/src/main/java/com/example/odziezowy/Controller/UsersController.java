@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -30,7 +31,7 @@ public class UsersController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Users> register(@PathVariable(value = "id") Long id, @RequestBody UsersDto user) {
+    public ResponseEntity<Users> register(@PathVariable(value = "id") Long id, @Valid @RequestBody UsersDto user) {
         return usersService.registerUserService(id, user);
     }
 

@@ -17,28 +17,28 @@ public class UsersDto implements Serializable {
     @Email
     @NotBlank(message = "E-mail jest wymagany")
     private final String email;
-    @Max(50)
+    @Max(value = 50, message = "Maksymalnie 50 znaków")
     @NotBlank(message = "Login jest wymagany")
     private final String login;
-    @Max(50)
+    @Max(value = 50, message = "Maksymalnie 50 znaków")
     @NotBlank(message = "Hasło jest wymagane")
     private final String password;
-    @Max(50)
+    @Max(value = 50, message = "Maksymalnie 50 znaków")
     @NotBlank(message = "Imie jest wymagane")
     private final String name;
-    @Max(50)
+    @Max(value = 50, message = "Maksymalnie 50 znaków")
     @NotBlank(message = "Nazwisko jest wymagane")
     private final String surname;
-    @Max(50)
+    @Max(value = 50, message = "Maksymalnie 50 znaków")
     @NotBlank(message = "Miasto jest wymagane")
     private final String city;
     @NotBlank(message = "Kod pocztowy jest wymagany")
-    @Max(6)
+    @Max(value = 6, message = "Maksymalnie 6 znaków")
     private final String zipCode;
-    @Max(50)
+    @Max(value = 50, message = "Maksymalnie 50 znaków")
     @NotBlank(message = "Ulica jest wymagana")
     private final String street;
-    @Max(2)
+    @Max(value = 1, message = "Maksymalnie 1 znak")
     @NotBlank(message = "Rola jest wymagana")
     private final String roles;
     private final Integer active;

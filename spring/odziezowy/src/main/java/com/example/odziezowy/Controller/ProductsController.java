@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,7 +74,7 @@ public class ProductsController {
     }
 
     @PostMapping("/{name}")
-    public ResponseEntity<String> createProduct(@PathVariable(value = "name") String name, @RequestBody ProductsDto productsDto) {
+    public ResponseEntity<String> createProduct(@PathVariable(value = "name") String name,@Valid @RequestBody ProductsDto productsDto) {
         return productsService.createProdcutService(name, productsDto);
     }
 

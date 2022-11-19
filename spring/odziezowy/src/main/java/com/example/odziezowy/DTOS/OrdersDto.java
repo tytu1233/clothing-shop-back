@@ -3,6 +3,7 @@ package com.example.odziezowy.DTOS;
 import com.example.odziezowy.Model.Orders;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 
