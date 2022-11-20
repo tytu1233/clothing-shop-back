@@ -1,5 +1,7 @@
 package com.example.odziezowy.Service;
 
+import com.example.odziezowy.DTOS.OrdersDtoMonthly;
+import com.example.odziezowy.DTOS.ProductsCountDto;
 import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Exception.ResourceNotFoundException;
 import com.example.odziezowy.Model.Categories;
@@ -99,5 +101,9 @@ public class ProductsService {
         productsRepository.save(products);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    public List<ProductsCountDto> countCategoriesByProductService() {
+        return productsRepository.findCountCategories();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.odziezowy.Controller;
 
 
+import com.example.odziezowy.DTOS.OrdersDtoMonthly;
+import com.example.odziezowy.DTOS.ProductsCountDto;
 import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Repository.ProductsRepository;
@@ -78,4 +80,8 @@ public class ProductsController {
         return productsService.createProdcutService(name, productsDto);
     }
 
+    @GetMapping("/count")
+    public List<ProductsCountDto> countCategoriesByProduct() {
+        return productsService.countCategoriesByProductService();
+    }
 }

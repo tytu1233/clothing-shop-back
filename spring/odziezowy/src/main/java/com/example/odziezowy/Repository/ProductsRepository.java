@@ -1,5 +1,8 @@
 package com.example.odziezowy.Repository;
 
+import com.example.odziezowy.DTOS.OrdersDtoMonthly;
+import com.example.odziezowy.DTOS.ProductsCountDto;
+import com.example.odziezowy.DTOS.ProductsDto;
 import com.example.odziezowy.Model.Categories;
 import com.example.odziezowy.Model.Products;
 import com.example.odziezowy.Model.Sizes;
@@ -15,6 +18,9 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
     List<Products> findAllByNameContains(String name);
     @Query(value = "SELECT DISTINCT * FROM products GROUP BY brand" , nativeQuery = true)
     List<Products> findDistinctByName();
+
+    @Query(value = "SELECT new com.example.odziezowy.DTOS.ProductsCountDto(COUNT(p.id), p.categories) FROM Products p GROUP BY p.categories")
+    List<ProductsCountDto> findCountCategories();
     Page<Products> findDistinctByBrandInAndSizesesInAndPriceBetween(Pageable pageable, List<String> brands, List<Sizes> sizes, Double min, Double max);
     Page<Products> findDistinctBySizesesInAndCategoriesInAndPriceBetween(Pageable pageable, List<Sizes> sizes, List<Categories> categories, Double min, Double max);
     Page<Products> findDistinctByBrandInAndCategoriesInAndPriceBetween(Pageable pageable, List<String> brands, List<Categories> categories, Double min, Double max);
