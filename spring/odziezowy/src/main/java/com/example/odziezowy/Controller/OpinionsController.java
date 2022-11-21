@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,7 @@ public class OpinionsController {
 
     @PostMapping
     public ResponseEntity<Opinions> createOpinions(@RequestParam Long userId,
-                                                   @RequestParam Long productId, @RequestBody OpinionsDto opinionsDto) {
+                                                   @RequestParam Long productId,@Valid @RequestBody OpinionsDto opinionsDto) {
         return opinionsService.createOpinionsService(userId, productId, opinionsDto);
     }
 

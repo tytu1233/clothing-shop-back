@@ -1,5 +1,6 @@
 package com.example.odziezowy.Controller;
 
+import com.example.odziezowy.Exception.UserNotFoundException;
 import com.example.odziezowy.Model.Credentials;
 import com.example.odziezowy.Model.Users;
 import com.example.odziezowy.DTOS.UsersDto;
@@ -37,11 +38,11 @@ public class UsersController {
 
     @GetMapping("/{id}")
     public Optional<Users> getById(@PathVariable(value = "id") Long id) {
-        return usersRepository.findById(id);
+        return usersService.getByIdService(id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<String> deleteUserById(@PathVariable(value = "id") Long id) throws UserNotFoundException {
         return usersService.deleteUserService(id);
     }
 

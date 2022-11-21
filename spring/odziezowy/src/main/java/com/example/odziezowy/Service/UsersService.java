@@ -2,6 +2,7 @@ package com.example.odziezowy.Service;
 
 import com.example.odziezowy.DTOS.UsersDto;
 import com.example.odziezowy.Exception.ResourceNotFoundException;
+import com.example.odziezowy.Exception.UserNotFoundException;
 import com.example.odziezowy.Model.AuthenticationResponse;
 import com.example.odziezowy.Model.Credentials;
 import com.example.odziezowy.Model.Roles;
@@ -14,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -66,12 +69,15 @@ public class UsersService {
         return new ResponseEntity<>(updateUser, HttpStatus.ACCEPTED);
     }
 
-    public ResponseEntity<String> deleteUserService(Long id) {
+    public ResponseEntity<String> deleteUserService(Long id) throws UserNotFoundException {
         Users users = usersRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Can not find user" + id));
-
-        usersRepository.delete(users);
-        return new ResponseEntity<>(HttpStatus.OK);
+        if(users!=null){
+            usersRepository.delete(users);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            throw new UserNotFoundException("user not found with id : " + id);
+        }
     }
 
     public ResponseEntity<String> passwordMatchesService(Credentials credentials) {
@@ -113,5 +119,9 @@ public class UsersService {
         updateUser.setPassword(encodedPassword);
         usersRepository.save(updateUser);
         return new ResponseEntity<>("ok", HttpStatus.OK);
+    }
+
+    public Optional<Users> getByIdService(Long id) {
+        return usersRepository.findById(id);
     }
 }

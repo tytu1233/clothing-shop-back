@@ -38,8 +38,6 @@ public class UsersDto implements Serializable {
     @Max(value = 50, message = "Maksymalnie 50 znaków")
     @NotBlank(message = "Ulica jest wymagana")
     private final String street;
-    @Max(value = 1, message = "Maksymalnie 1 znak")
-    @NotBlank(message = "Rola jest wymagana")
     private final String roles;
     private final Integer active;
 }
